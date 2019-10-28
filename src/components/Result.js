@@ -14,14 +14,15 @@ function Result (props) {
       transitionAppearTImeout={500}
     >
       <div>
-        You prefer <strong>{props.quizResult}</strong>
+        Your score is <strong>{props.quizScore}</strong>
       </div>
+
     </CSSTransitionGroup>
   )
 }
 
 Result.propTypes = {
-  quizResult: PropTypes.string.isRequired
+  quizScore: PropTypes.number.isRequired
 }
 
 export default Result

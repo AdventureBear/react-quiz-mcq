@@ -18,6 +18,7 @@ class App extends React.Component {
       question:      '',
       answerOptions: [],
       selectedAnswers: new Array(quizQuestions.length).fill(0),
+      unansweredQuestions: [],
       answerKey: [],
       answer:        '',
       answersCount:  {},
@@ -25,11 +26,13 @@ class App extends React.Component {
       optionSelected: false,
       reveal: false,
       studyMode: true,
+      reviewMode: false,
       discussion: {
         correct: false,
         discussion: "",
         label: ""
-      }
+      },
+      score: -1
     }
 
     this.handleAnswerSelected = this.handleAnswerSelected.bind(this)
@@ -41,6 +44,8 @@ class App extends React.Component {
     this.handleScore = this.handleScore.bind(this)
     this.createAnswerKey = this.createAnswerKey.bind(this)
     this.checkUnanswered = this.checkUnanswered.bind(this)
+    this.setResults = this.setResults.bind(this)
+    this.handleReview = this.handleReview.bind(this)
   }
 
   componentDidMount () {
@@ -101,7 +106,7 @@ class App extends React.Component {
       // setTimeout(() => this.setNextQuestion(), 300)
     } else {
       console.log("This is the end of the quiz. Do something!")
-      // setTimeout(() => this.setResults(this.getResults()), 300)
+      setTimeout(() => this.setResults(this.handleScore()), 300)
     }
   }
 
@@ -182,14 +187,6 @@ class App extends React.Component {
   }
 
   checkUnanswered () {
-    let unanswered = this.state.selectedAnswers.reduce((unanswered, answer, i) => {
-      console.log(i + "Answer: " + answer)
-      if (answer===0) {
-        console.log("inside")
-        unanswered++
-      }
-      return unanswered
-    }, 0)
 
     let unansweredQuestions = this.state.selectedAnswers.map((answer, i) => {
       if (answer === 0 ) {
@@ -200,27 +197,40 @@ class App extends React.Component {
     }).filter((el) => {
       return el
     })
-    console.log("Unanswered: " + unanswered)
-    console.log("Unanswered Questionns" + unansweredQuestions)
+
+    if (unansweredQuestions.length>0) {
+      this.setState({
+        unansweredQuestions: unansweredQuestions,
+        reviewMode: true
+      })
+    }
+    // console.log("Unanswered: " + unanswered)
+    console.log("Unanswered Questions:" + unansweredQuestions)
+    console.log("Length of array: " + unansweredQuestions.length)
   }
 
   handleScore () {
     //check for unanswered
     this.checkUnanswered()
-    console.log ("Scoring your test")
-    console.log("Answer Key", this.state.answerKey)
-    console.log("Your answers", this.state.selectedAnswers)
-    let score = this.state.selectedAnswers.reduce((totalScore, answer, i) => {
-      console.log("Answer " + i + " = " + answer)
-        if (answer === this.state.answerKey[i]) {
-          totalScore ++
-        } else {
 
-        }
-        return totalScore
-      }, 0
-  )
-    console.log("Your score is: ", score)
+    //score the test
+    console.log ("Scoring your test")
+    if (this.state.unansweredQuestions.length===0) {
+      let score = this.state.selectedAnswers.reduce((totalScore, answer, i) => {
+          console.log("Answer " + i + " = " + answer)
+          if (answer === this.state.answerKey[i]) {
+            totalScore++
+          } else {
+
+          }
+          return totalScore
+        }, 0
+      )
+
+      this.setResults(score)
+      console.log("Your score is: ", score)
+    }
+
 
 
     //Check for unanswered questions
@@ -285,19 +295,26 @@ class App extends React.Component {
   //   return  answersCountKeys.filter((key) => answersCount[key] === maxAnswersCount)
   // }
 
-  // setResults (result) {
-  //   if (result.length === 1) {
-  //     this.setState({result: result[0]})
-  //   } else {
-  //     this.setState({result: 'Undetermined'})
-  //   }
-  //   console.log("result", result)
-  // }
+  setResults (result) {
+      this.setState({score: result})
+    }
+
 
   handleStudyModeChange() {
     const studyMode = this.state.studyMode
     this.setState({
       studyMode: !studyMode
+    })
+  }
+
+  handleReview () {
+    //grab first question ID & pass that to quiz by updating counter.
+    const counter = this.state.unansweredQuestions[0]
+    const questionId = counter
+    this.setState({
+      counter: counter,
+      reviewMode: false,
+      questionId: questionId
     })
   }
 
@@ -317,7 +334,12 @@ class App extends React.Component {
             <span>Study Mode</span>
           </label>
         </header>
-        {this.state.result ? this.renderResult() : this.renderQuiz() }
+        { (this.state.reviewMode)? this.renderReview()
+          : ( this.state.score >= 0 ? this.renderResult()
+            : this.renderQuiz())}
+
+        {/*{ (this.state.unansweredQuestions.length > 0 && this.state.reviewMode === false )? this.renderReview() : ( this.state.score >= 0 ? this.renderResult() : this.renderQuiz())}*/}
+        {/*{this.state.score >= 0 ? this.renderResult() : this.renderQuiz() }*/}
       </div>
     )
   }
@@ -327,6 +349,7 @@ class App extends React.Component {
     return (
 
       <Quiz
+        unansweredQuestions={this.state.unansweredQuestions}
         answer={this.state.selectedAnswers[this.state.counter]}
         answerOptions={this.state.answerOptions}
         questionId={this.state.questionId}
@@ -352,10 +375,20 @@ class App extends React.Component {
 
   renderResult () {
     return (
-      <Result quizResult={this.state.result} />
+      <Result
+        quizScore={this.state.score} />
     )
   }
 
+  renderReview () {
+    return (
+      <div>
+      <h1>Review your unanswered questions</h1>
+      <p>you have {this.state.unansweredQuestions.length} unanswered questions </p>
+        <button onClick={this.handleReview}>Review</button>
+      </div>
+    )
+  }
 }
 export default App;
 

@@ -2,26 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c1a21dd5-acc4-4643-9a79-eca3a08948fd" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/api/quizQuestions.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/AnswerOption.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Controls.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Discussion.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Question.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/QuestionCount.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Quiz.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/References.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Result.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/svg/icon-check.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/toggle.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/logo.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/svg/logo.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Result.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Result.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -95,7 +79,7 @@
       <workItem from="1570682999619" duration="41000" />
       <workItem from="1570683172124" duration="3349000" />
       <workItem from="1570940250965" duration="36615000" />
-      <workItem from="1571796385334" duration="11933000" />
+      <workItem from="1571796385334" duration="16449000" />
     </task>
     <servers />
   </component>
