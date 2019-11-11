@@ -7,7 +7,7 @@ function Discussion (props) {
       return (
         <div className='discussion'>
           <h3>You answered: </h3>
-          <span>{props.choice.content}</span>
+          <span>{props.choice.label}</span>
           <h3>This answer is {props.choice.correct.toString()}</h3>
           <p>{props.choice.discussion}</p>
         </div>

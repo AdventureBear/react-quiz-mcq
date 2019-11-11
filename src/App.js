@@ -23,10 +23,13 @@ class App extends React.Component {
       answer:        '',
       answersCount:  {},
       result:        '',
-      optionSelected: false,
-      reveal: false,
-      studyMode: true,
-      reviewMode: false,
+      behavior: {
+        reveal: false,
+        studyMode: true,
+        reviewMode: false,
+        optionSelected: false,
+        unanswered: false
+      },
       discussion: {
         correct: false,
         discussion: "",
@@ -44,7 +47,7 @@ class App extends React.Component {
     this.handleScore = this.handleScore.bind(this)
     this.createAnswerKey = this.createAnswerKey.bind(this)
     this.checkUnanswered = this.checkUnanswered.bind(this)
-    this.setResults = this.setResults.bind(this)
+    // this.setResults = this.setResults.bind(this)
     this.handleReview = this.handleReview.bind(this)
   }
 
@@ -87,27 +90,38 @@ class App extends React.Component {
     let selectedAnswers = this.state.selectedAnswers
     //this hides the answer when scrolling back through previously answered
     if (this.state.selectedAnswers[this.state.counter]) {
-      this.setState({
-        reveal: false
-      })
+
+      this.setState(prevState => ({
+        behavior: {                   // object that we want to update
+          ...prevState.behavior,    // keep all other key-value pairs
+          reveal: false       // update the value of specific key
+        }
+      }))
+      // this.setState({
+      //   reveal: false
+      // })
     }
 
     //set selected answer based on answer's index
     selectedAnswers[this.state.counter] = parseInt(event.currentTarget.value)
-    this.setState({
+    this.setState(prevState => ( {
       selectedAnswers: selectedAnswers,
-      optionSelected: true
-    })
+      behavior: {
+        ...prevState.behavior,
+          optionSelected: true
+      }
+    }))
 
 
     // this.setUserAnswer(event.currentTarget.value)
 
-    if (this.state.questionId < quizQuestions.length) {
+    //thisis commented out b/c I don't want it to advance automatically
+    // if (this.state.questionId < quizQuestions.length) {
       // setTimeout(() => this.setNextQuestion(), 300)
-    } else {
-      console.log("This is the end of the quiz. Do something!")
-      setTimeout(() => this.setResults(this.handleScore()), 300)
-    }
+    // } else {
+    //   console.log("This is the end of the quiz. Do something!")
+      // setTimeout(() => this.setResults(this.handleScore()), 300)
+    // }
   }
 
   // setUserAnswer (answer) {
@@ -125,13 +139,19 @@ class App extends React.Component {
   setOptionSelected (counter) {
     console.log("store array of correct answers here")
     if (this.state.selectedAnswers[counter]) {
-      this.setState({
-        optionSelected: true
-      })
+      this.setState(prevState => ({
+        behavior: {
+          ...prevState.behavior,
+          optionSelected: true
+        }
+      }))
     } else {
-      this.setState({
-        optionSelected: false
-      })
+      this.setState(prevState => ({
+        behavior: {
+          ...prevState.behavior,
+          optionSelected: false
+        }
+      }))
     }
   }
 
@@ -146,17 +166,21 @@ class App extends React.Component {
 
       this.setOptionSelected(counter)
 
-      this.setState({
+      this.setState(prevState => ({
         counter:       counter,
         questionId:    questionId,
         question:      quizQuestions[counter].question,
         answerOptions: quizQuestions[counter].answers,
         discussion: {
           correct: false,
-          discussion: ""
+          discussion: "",
+          label: ""
         },
-        reveal: false
-      })
+        behavior: {
+          ...prevState.behavior,
+          reveal: false
+        }
+      }))
     }
 }
 
@@ -176,17 +200,24 @@ class App extends React.Component {
     )
     // console.log(choice[0])
     // console.log(choice[0].correct, choice[0].discussion)
-    this.setState({
-      reveal: true,
+    this.setState(prevState => ({
+      behavior: {
+        ...prevState.behavior,
+        reveal: true
+      },
       discussion: {
         correct: choice[0].correct,
         discussion: choice[0].discussion,
-        content: choice[0].content
+       // content: choice[0].content,
+        label: choice[0].content
       }
-    })
+    }))
   }
 
   checkUnanswered () {
+    //maps through selected answers,
+    // returns array location of unanswered,
+    // then filters & returns only the unanswered ones.
 
     let unansweredQuestions = this.state.selectedAnswers.map((answer, i) => {
       if (answer === 0 ) {
@@ -194,97 +225,177 @@ class App extends React.Component {
       } else {
         return null
       }
-    }).filter((el) => {
-      return el
+    }).filter(el => {
+        return el
+      })
+
+    console.log("Unanswered Questions", unansweredQuestions)
+
+    this.setState({
+      unansweredQuestions: unansweredQuestions,
     })
 
     if (unansweredQuestions.length>0) {
-      this.setState({
-        unansweredQuestions: unansweredQuestions,
-        reviewMode: true
-      })
+      console.log("There are unanswered questions")
+      this.setState(prevState => ({
+        behavior: {
+          ...prevState.behavior,
+          unanswered: true
+        }
+      }))
+    } else {
+      console.log("There are no unanswered questions")
+      this.setState(prevState => ({
+        behavior: {
+          ...prevState.behavior,
+          unanswered: false
+        }
+      }))
     }
-    // console.log("Unanswered: " + unanswered)
-    console.log("Unanswered Questions:" + unansweredQuestions)
-    console.log("Length of array: " + unansweredQuestions.length)
   }
 
-  handleScore () {
+  async handleScore () {
     //check for unanswered
-    this.checkUnanswered()
+    console.log("checking for unanswered questions")
+    await this.checkUnanswered()
 
-    //score the test
-    console.log ("Scoring your test")
-    if (this.state.unansweredQuestions.length===0) {
+    //score the test if there are no unanswered questions
+    if (!this.state.behavior.unanswered) {
+      console.log("There are no unanswered questions...scoring your test")
       let score = this.state.selectedAnswers.reduce((totalScore, answer, i) => {
           console.log("Answer " + i + " = " + answer)
           if (answer === this.state.answerKey[i]) {
+            console.log("answer correct")
             totalScore++
           } else {
-
+            console.log("answer incorrect")
           }
           return totalScore
         }, 0
       )
 
-      this.setResults(score)
-      console.log("Your score is: ", score)
+      this.setState({score})
+      // this.setResults(score)
+    }  else {
+      console.log("Can't score test due to unanswered questions")
     }
-
-
-
-    //Check for unanswered questions
-    // this.state.selectedAnswers.
-    // if unanswered, offer to reveal those
-    // otherwise score them:
-
-    // offer to Review Test
-    // const answersCount = this.state.answersCount
-    // const answersCountKeys = Object.keys(answersCount)
-    // const answersCountValues = answersCountKeys.map((key) => answersCount[key])
-    // const maxAnswersCount = Math.max.apply(null, answersCountValues)
-    //
-    // return  answersCountKeys.filter((key) => answersCount[key] === maxAnswersCount)
   }
 
-  handleNextQuestion () {
+  async handleNextQuestion () {
     //increment counter & Id, update state, but don't change answer if already answered
-    if (this.state.counter < quizQuestions.length - 1 ) {
-      const counter = this.state.counter + 1
-      const questionId = this.state.questionId  + 1
+    if (this.state.behavior.reviewMode) {
+      //If Review Mode On => Show next unanswered question
+      await this.checkUnanswered()
+      // if Review Mode On and Unanswered questions remain
+      // set counter to next unanswered & do all the other normal things
 
-      this.setOptionSelected(counter)
+      if (this.state.unasweredQuestions > 0) {
+        const counter = this.state.unasweredQuestions[0]
+        const questionId = counter+1
+        this.setOptionSelected(counter)
+        this.setNextQuestion(counter, questionId)
 
-      this.setState({
-        counter:       counter,
-        questionId:    questionId,
-        question:      quizQuestions[counter].question,
-        answerOptions: quizQuestions[counter].answers,
-        discussion: {
-          correct: false,
-          discussion: ""
-        },
-        reveal: false
-      })
+      } else {
+        //If Review Mode On and no unanswered questions
+        //Turn review mode off
+        //Just do the normal stuff and go to next question
+
+        this.setState(prevState => ({
+          behavior: {
+            ...prevState.behavior,
+            reviewMode: false
+          }
+        }))
+        const counter = this.state.counter + 1
+        const questionId = this.state.questionId + 1
+        this.setOptionSelected(counter)
+        this.setNextQuestion(counter, questionId)
+      }
+
     } else {
-      console.log ("Can't go forward")
-      return
+      //If review mode OFF AND Not at end => Show next Q
+      if (this.state.counter < quizQuestions.length - 1) {
+        const counter = this.state.counter + 1
+        const questionId = this.state.questionId + 1
+        this.setOptionSelected(counter)
+        this.setNextQuestion(counter, questionId)
 
+
+        // this.setState({
+        //   counter:       counter,
+        //   questionId:    questionId,
+        //   question:      quizQuestions[counter].question,
+        //   answerOptions: quizQuestions[counter].answers,
+        //   discussion:    {
+        //     correct:    false,
+        //     discussion: ""
+        //   },
+        //   reveal:        false
+        // })
+      } else {
+        console.log("Can't go forward")
+        return
+
+      }
     }
   }
 
-  setNextQuestion () {
-    const counter = this.state.counter + 1
-    const questionId = this.state.questionId + 1
-    this.setState({
+  //   if (this.state.counter < quizQuestions.length - 1 ) {
+  //     const counter = this.state.counter + 1
+  //     const questionId = this.state.questionId  + 1
+  //
+  //     this.setOptionSelected(counter)
+  //
+  //     this.setState({
+  //       counter:       counter,
+  //       questionId:    questionId,
+  //       question:      quizQuestions[counter].question,
+  //       answerOptions: quizQuestions[counter].answers,
+  //       discussion: {
+  //         correct: false,
+  //         discussion: ""
+  //       },
+  //       reveal: false
+  //     })
+  //   } else {
+  //     console.log ("Can't go forward")
+  //     return
+  //
+  //   }
+  // }
+
+  setNextQuestion (counter, questionId) {
+
+    // const counter = this.state.counter + 1
+    // const questionId = this.state.questionId + 1
+    this.setState(prevState => ({
       counter:       counter,
       questionId:    questionId,
       question:      quizQuestions[counter].question,
       answerOptions: quizQuestions[counter].answers,
-      reveal: false
-
-    })
+      behavior: {
+        ...prevState.behavior,
+        reveal: false
+      },
+      discussion:    {
+        correct:    false,
+        discussion: "",
+        label: ""
+      }
+    }))
   }
+
+  // this.setState({
+  //   counter:       counter,
+  //   questionId:    questionId,
+  //   question:      quizQuestions[counter].question,
+  //   answerOptions: quizQuestions[counter].answers,
+  //   discussion:    {
+  //     correct:    false,
+  //     discussion: ""
+  //   },
+  //   reveal:        false
+  // })
 
   // getResults () {
   //   const answersCount = this.state.answersCount
@@ -295,27 +406,42 @@ class App extends React.Component {
   //   return  answersCountKeys.filter((key) => answersCount[key] === maxAnswersCount)
   // }
 
-  setResults (result) {
-      this.setState({score: result})
-    }
+  // setResults (result) {
+  //     this.setState({score: result})
+  //   }
 
 
   handleStudyModeChange() {
-    const studyMode = this.state.studyMode
-    this.setState({
-      studyMode: !studyMode
-    })
+    const studyMode = this.state.behavior.studyMode
+    this.setState(prevState => ({
+      behavior: {
+        ...prevState.behavior,
+        studyMode: !studyMode
+      }
+
+    }))
   }
 
   handleReview () {
     //grab first question ID & pass that to quiz by updating counter.
     const counter = this.state.unansweredQuestions[0]
-    const questionId = counter
-    this.setState({
+    const questionId = counter + 1
+    this.setState(prevState => ({
       counter: counter,
-      reviewMode: false,
-      questionId: questionId
-    })
+      questionId: questionId,
+      question:      quizQuestions[counter].question,
+      answerOptions: quizQuestions[counter].answers,
+      behavior: {
+        ...prevState.behavior,
+        reveal: false,
+        reviewMode: true,
+      },
+      discussion:    {
+        correct:    false,
+        discussion: "",
+        label: ""
+      }
+    }))
   }
 
   render () {
@@ -328,17 +454,20 @@ class App extends React.Component {
           <h3>EMQuick Board Review</h3>
           <label>
             <Toggle
-              defaultChecked={this.state.studyMode}
+              defaultChecked={this.state.behavior.studyMode}
               icons={false}
               onChange={this.handleStudyModeChange} />
             <span>Study Mode</span>
           </label>
         </header>
-        { (this.state.reviewMode)? this.renderReview()
-          : ( this.state.score >= 0 ? this.renderResult()
-            : this.renderQuiz())}
 
-        {/*{ (this.state.unansweredQuestions.length > 0 && this.state.reviewMode === false )? this.renderReview() : ( this.state.score >= 0 ? this.renderResult() : this.renderQuiz())}*/}
+        { (this.state.behavior.unanswered) ?
+          ((!this.state.behavior.reviewMode) ? this.renderReview()
+          :  this.renderQuiz())
+              :  ( this.state.score >= 0 ? this.renderResult()
+                  : this.renderQuiz())
+        }
+
         {/*{this.state.score >= 0 ? this.renderResult() : this.renderQuiz() }*/}
       </div>
     )
@@ -361,11 +490,11 @@ class App extends React.Component {
         handleReveal = {this.handleReveal}
         handleScore = {this.handleScore}
         discussion = {this.state.discussion}
-        optionSelected = {this.state.optionSelected}
-        reveal = {this.state.reveal}
+        optionSelected = {this.state.behavior.optionSelected}
+        reveal = {this.state.behavior.reveal}
         source = {quizQuestions[this.state.counter].source}
         references={quizQuestions[this.state.counter].references}
-        studyMode = {this.state.studyMode}
+        studyMode = {this.state.behavior.studyMode}
         selectedAnswers = {this.state.selectedAnswers}
       />
 

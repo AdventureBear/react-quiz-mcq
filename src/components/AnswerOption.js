@@ -25,7 +25,7 @@ function AnswerOption (props) {
 AnswerOption.propTypes = {
   id: PropTypes.number.isRequired,
   answerContent: PropTypes.string.isRequired,
-  answer: PropTypes.string,
+  answer: PropTypes.number,
   onAnswerSelected: PropTypes.func.isRequired
 }
 
