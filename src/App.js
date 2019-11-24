@@ -9,22 +9,6 @@ import Quiz from './components/Quiz'
 import Result from './components/Result'
 import Toggle from 'react-toggle'
 
-
-// const findUnanswered = (state) => ({
-//     unanswered: state.selectedAnswers.map((answer, i) => {
-//     if (answer === 0 ) {
-//       return i
-//     }
-//     else {
-//       return undefined
-//     }
-//   }).filter(el => {
-//     return el !== undefined
-//   })
-//
-// })
-
-
 class App extends React.Component {
   constructor (props) {
     super(props)
@@ -52,8 +36,6 @@ class App extends React.Component {
       },
       score: -1
     }
-
-
 
     this.handleAnswerSelected = this.handleAnswerSelected.bind(this)
     this.handlePrevQuestion = this.handlePrevQuestion.bind(this)
@@ -150,36 +132,13 @@ class App extends React.Component {
 
   handlePrevQuestion () {
     this.handleUpdate(-1)
-    // this.checkUnanswered()
-    // this.setState(decrementCounter)
-    // this.setOptionSelected()
-    // this.setNextQuestion()
-    // this.setNextPrevButtons()
   }
 
   handleNextQuestion () {
     this.handleUpdate(1)
-    // this.checkUnanswered()
-    // this.setState(incrementCounter)
-    // this.setOptionSelected()
-    // this.setNextQuestion()
-    // this.setNextPrevButtons()
   }
 
   handleUpdate (increment) {
-    // const unansweredQuestions = findUnanswered(this.state)
-    // const unansweredQuestions = this.state.selectedAnswers.map((answer, i) => {
-    //   console.log("answer", i,":", answer)
-    //   if (answer === 0 ) {
-    //     return i
-    //   }
-    //   else {
-    //     return undefined
-    //   }
-    // }).filter(el => {
-    //   return el !== undefined
-    // })
-    // console.log(unansweredQuestions)
     const counter = this.state.counter + increment
     const showPrev = counter !== 0;
     const showNext = counter !== quizQuestions.length - 1;
@@ -281,7 +240,6 @@ class App extends React.Component {
       this.setState({score})
   }
 
-
   setNextPrevButtons (){
     this.setState(({ counter }) => {
       const showPrev = counter !== 0;
@@ -338,6 +296,7 @@ class App extends React.Component {
           </label>
         </header>
         {this.state.score >= 0 ? this.renderResult() : this.renderQuiz() }
+
       </div>
     )
   }
@@ -376,6 +335,9 @@ class App extends React.Component {
   renderResult () {
     return (
       <Result
+        quiz={this.state.quiz}
+        selectedAnswers={this.state.selectedAnswers}
+        answerKey={this.state.answerKey}
         quizScore={this.state.score} />
     )
   }

@@ -1,5 +1,6 @@
 var quizQuestions = [
   {
+    id: 1,
     question: "A 64-year-old man presents with gradual onset of swelling in his face, a cough, a headache, shortness of breath, and, that morning, blue lips. When asked, he says that he smokes “not quite two” packs of cigarettes per day. Which test will most likely reveal the diagnosis?",
     answers: [
       {
@@ -34,6 +35,7 @@ var quizQuestions = [
     ]
   },
   {
+    id: 2,
     question: "When managing an acute aortic dissection, which medical therapy should be initiated first?",
     answers: [
       {
@@ -68,6 +70,7 @@ var quizQuestions = [
     ]
   },
   {
+    id: 3,
     question: "Which statement regarding Bordetella pertussis infection is correct?",
     answers: [
       {
@@ -101,6 +104,7 @@ var quizQuestions = [
   ]
   },
   {
+    id: 4,
     question: "Which statement about the metabolism of ethanol is correct?",
     answers: [
       {
@@ -135,6 +139,7 @@ var quizQuestions = [
     ]
   },
   {
+    id: 5,
     question: "Which structure is best evaluated for traumatic injury using noncontrast CT",
     answers: [
       {

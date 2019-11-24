@@ -39,10 +39,9 @@ body {
   }
 }
 
-/* Result Component */
-.result {
-  padding: 1.5rem 2.5rem;
-}
+
+
+
 
 /* Quiz Component */
 .answerOptions {
@@ -67,15 +66,37 @@ body {
   text-align: left;
 }
 
-/* AnswerOption Component */
-.answerOption {
-  border-top: 1px solid #eee;
+/* Result Component */
+.result {
+  margin: 0;
+  padding: 0.5rem 2.5rem 1.5rem 2.5rem;
+  font-size: large;
+  font-weight: bold;
+  text-align: left;
+
 }
 
-.answerOption:hover {
-  background-color: #eefbfe;
+.review {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-align: left;
+  position: relative;
+  width: 100%;
 }
 
+/* Question Review Component */
+.questionsReview {
+  margin: 0;
+  padding: 1.5rem 2.5rem 1.5rem 5rem;
+  font-size: 16px;
+  line-height: 1.5;
+  display: inline-block;
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+/* Radio Button Options */
 .radioCustomButton {
   position: absolute;
   width: auto;
