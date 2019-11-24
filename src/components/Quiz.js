@@ -14,7 +14,7 @@ function Quiz (props)  {
       <AnswerOption
         key={key.id}
         id={key.id}
-        answerType={key.type}
+        // answerType={key.type}
         answerContent={key.content}
         answer={props.answer}
         questionId={props.questionId}
@@ -22,7 +22,8 @@ function Quiz (props)  {
       />
     )
   }
-
+  const unanswered = ( props.unansweredQuestions.length > 0)
+  console.log(props.unansweredQuestions.length, unanswered)
   return (
     <CSSTransitionGroup
       className="container"
@@ -40,7 +41,7 @@ function Quiz (props)  {
         />
 
         <Question content={props.question}/>
-        {console.log(props.selectedAnswers)}
+
         <ul className='answerOptions'>
           {props.answerOptions.map(renderAnswerOptions)}
         </ul>
@@ -51,6 +52,11 @@ function Quiz (props)  {
           handleReveal = {props.handleReveal}
           handleScore = {props.handleScore}
           optionSelected={props.optionSelected}
+          handleReview={props.handleReview}
+          unanswered={(props.unansweredQuestions.length>0)}
+          // unanswered={props.unanswered}
+          showPrevButton={props.showPrevButton}
+          showNextButton={props.showNextButton}
         />
         <Discussion
           studyMode = {props.studyMode}
@@ -73,7 +79,7 @@ function Quiz (props)  {
 
 
 Quiz.propTypes = {
-  answer: PropTypes.string,
+  answer: PropTypes.number,
   answerOptions: PropTypes.array.isRequired,
   question: PropTypes.string.isRequired,
   questionId: PropTypes.number.isRequired,
@@ -86,7 +92,11 @@ Quiz.propTypes = {
   discussion: PropTypes.object.isRequired,
   reveal: PropTypes.bool.isRequired,
   source: PropTypes.string.isRequired,
-  references: PropTypes.array.isRequired
+  references: PropTypes.array.isRequired,
+  handleReview: PropTypes.func.isRequired,
+  showPrevButton: PropTypes.bool.isRequired,
+  showNextButton: PropTypes.bool.isRequired,
+  // unanswered: PropTypes.bool.isRequired
 }
 
 export default Quiz

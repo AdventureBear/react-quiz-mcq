@@ -11,7 +11,7 @@ function Result (props) {
       transitionEnterTimeout={800}
       transitionLeaveTimeout={500}
       transitionAppear
-      transitionAppearTImeout={500}
+      transitionAppearTimeout={500}
     >
       <div>
         Your score is <strong>{props.quizScore}</strong>
