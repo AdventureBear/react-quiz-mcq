@@ -10,6 +10,9 @@ import Result from './components/Result'
 import Toggle from 'react-toggle'
 import Footer from './components/Footer'
 import Header from './components/Header'
+git
+
+
 
 class App extends React.Component {
   constructor (props) {
