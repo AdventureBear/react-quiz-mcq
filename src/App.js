@@ -55,6 +55,12 @@ class App extends React.Component {
   }
 
   componentDidMount () {
+    // https://medium.com/@maison.moa/setting-up-an-express-backend-server-for-create-react-app-bc7620b20a61
+    // Call our fetch function below once the component mounts
+    this.callBackendAPI()
+      .then(res => this.setState({ data: res.express }))
+      .catch(err => console.log(err))
+
     const shuffledAnswerOptions = quizQuestions.map((question) =>
       App.shuffleArray(question.answers)
     )
@@ -68,6 +74,16 @@ class App extends React.Component {
     this.createAnswerKey()
     this.setNextPrevButtons()
   }
+
+  callBackendAPI = async () => {
+    const response = await fetch('/express_backend');
+    const body = await response.json();
+
+    if (response.status !== 200) {
+      throw Error(body.message)
+    }
+    return body;
+  };
 
   static shuffleArray (array) {
     let currentIndex = array.length, temporaryValue, randomIndex
@@ -278,6 +294,7 @@ class App extends React.Component {
   }
 
   render () {
+    console.log("Express backend: ", this.state.data)
     return (
       <div className="App">
         <Header
