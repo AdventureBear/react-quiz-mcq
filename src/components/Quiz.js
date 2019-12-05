@@ -42,9 +42,11 @@ function Quiz (props)  {
 
         <Question content={props.question}/>
 
+        {/*//Answer Option*/}
         <ul className='answerOptions'>
           {props.answerOptions.map(renderAnswerOptions)}
         </ul>
+
         <Controls
           studyMode = {props.studyMode}
           handlePrevQuestion = {props.handlePrevQuestion}
@@ -58,11 +60,13 @@ function Quiz (props)  {
           showPrevButton={props.showPrevButton}
           showNextButton={props.showNextButton}
         />
+
         <Discussion
           studyMode = {props.studyMode}
           choice = {props.discussion}
           reveal = {props.reveal}
         />
+
         <References
           source = {props.source}
           references = {props.references}
@@ -96,7 +100,6 @@ Quiz.propTypes = {
   handleReview: PropTypes.func.isRequired,
   showPrevButton: PropTypes.bool.isRequired,
   showNextButton: PropTypes.bool.isRequired,
-  // unanswered: PropTypes.bool.isRequired
 }
 
 export default Quiz

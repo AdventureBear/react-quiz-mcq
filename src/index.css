@@ -18,30 +18,121 @@ code {
   box-sizing: border-box;
 }
 
-body {
-  margin: 0;
-  padding: 0;
-  background: #fff;
-  font-family: sans-serif;
+.header {
+  background-color: #385167;
+  min-height: 8vh;
+  display: flex;
+  flex-direction: row;
+  font-size: calc(10px + 2vmin);
+  color: white;
+  position: fixed;
+  z-index: 1;
+  width: 100%;
+  top: 0;
+  left: 0;
+  padding: 10px 20px;
+  margin: 0 auto;
 }
+
+
+.title, .navbar, .toggle-label {
+  color: inherit;
+  margin-left: 10px;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 20px;
+}
+
+.navbar {
+  flex-grow: 2;
+  justify-content: left;
+  display: flex;
+  flex-direction: row;
+  overflow-x: auto;
+  overflow-y: hidden;
+  height: 100%;
+}
+
+.toggle {
+  flex-grow: 1;
+}
+
+.nav-item {
+  padding: 10px 20px;
+}
+/*@media (min-width: 600px) {*/
+/*  .nav-item {*/
+/*    position: relative;*/
+/*  }*/
+/*}*/
+
+/*@media (max-width: 979px) and (min-width: 600px) {*/
+/*    .nav-item, .nav-item-2, .nav-item-3, .nav-item-4 {*/
+/*      padding-left: 10px;*/
+/*      padding-right: 10px;*/
+/*    }*/
+/*  }*/
+
+/*.nav-item, .nav-item-2, .nav-item-3, .nav-item-4 {*/
+/*  display: flex;*/
+/*  padding-left: 15px;*/
+/*  padding-right: 15px;*/
+/*  flex-direction: row;*/
+/*  align-items: center;*/
+/*  transition: color 0.2s ease-out 0s;*/
+/*}*/
+
+/*.nav-item {*/
+/*  order: 1;*/
+/*}*/
+/*.nav-item-2 {*/
+/*  order: 2;*/
+/*}*/
+/*.nav-item-3 {*/
+/*  order: 3;*/
+/*}*/
+
+/*.nav-item-4 {*/
+/*  order: 4;*/
+/*}*/
+
+
+@media (min-width: 600px) {
+.breadcrumb {
+  position: absolute;
+  bottom: -1px;
+  height: 4px;
+  left: 0px;
+  right: 0px;
+  z-index: 1;
+  background: rgb(97, 218, 251);
+}
+}
+
+
+/*@media (min-width: 769px) {*/
+/*  .container {*/
+/*    margin: 2.5rem auto;*/
+/*  }*/
+/*}*/
 
 .container {
   position: relative;
   max-width: 800px;
-  margin: 0 auto;
+  margin: 55px auto 0 auto;
   background: #fff;
   border-radius: 3px;
 }
 
-@media (min-width: 769px) {
-  .container {
-    margin: 2.5rem auto;
-  }
+
+a {
+  color: inherit;
+  text-decoration: none;
+  text-align: left;
 }
-
-
-
-
+a {
+  background-color: transparent;
+}
 
 /* Quiz Component */
 .answerOptions {
@@ -52,7 +143,7 @@ body {
 }
 
 /* QuestionCount Component */
-.questionCount {
+.questionCount, .score {
   padding: 1.5rem 2.5rem 0;
   font-size: 14px;
 }
@@ -110,7 +201,8 @@ body {
   cursor: pointer;
 }
 
-.radioCustomLabel {
+.radioCustomLabel
+ {
   position: relative;
   width: 100%;
   margin: 0;
@@ -119,7 +211,46 @@ body {
   line-height: 1.5;
 }
 
-.radioCustomButton ~ .radioCustomLabel:before {
+.hidden {
+  display: none;
+}
+
+.answerSelection {
+  margin: 0;
+  padding: 1.5rem 2.5rem 1.5rem 5rem;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.answerSelection {
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+.answerIcon {
+  margin-left: -28px;
+  position: relative;
+  left: -28px;
+  width: 28px;
+  height: 28px;
+  vertical-align: middle;
+  border-radius: 50%;
+  transition: all 0.3s;
+  background-size: 27px;
+}
+
+.iconCheck {
+  background: #8bc53f url(./svg/icon-check.svg) no-repeat;
+  border-color: #8bc53f;
+}
+
+.iconX {
+  background: #F54321 url(./svg/icon-x.svg) no-repeat;
+  border-color: #F54321;
+}
+
+.radioCustomButton ~ .radioCustomLabel:before
+ {
   position: absolute;
   top: 20px;
   left: 38px;
@@ -172,6 +303,7 @@ button:hover {
   text-align: left;
   list-style: none;
 }
+
 /* Animation */
 .fade-enter {
   opacity: 0;
@@ -202,4 +334,54 @@ button:hover {
 .fade-appear.fade-appear-active {
   opacity: 1;
   transition: opacity 0.5s ease-in-out;
+}
+
+/* Footer */
+.footer {
+  display: flex;
+  flex-flow: row wrap;
+  background-color: #20232a;
+  color: #ffffff;
+  padding: 10px 20px 50px;
+  margin-left: auto;
+  margin-right: auto
+}
+
+/*Footer About Info */
+.footer-about {
+  order: -1;
+  padding-top: 40px;
+  display: block !important;
+  flex-grow: 1;
+}
+
+/* Footer Nav (Links) Box */
+.footer-nav {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  flex-grow: 4;
+}
+
+
+/*Footer Link Container */
+.footer-nav-container {
+  text-align: left;
+  padding: 40px 10px;
+}
+
+/* Footer Link Header */
+.footer-nav-group-header {
+  color: #999;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 3;
+  text-transform: uppercase;
+  text-align: start;
+  letter-spacing: 0.08em;
+}
+
+/* Footer Links */
+.footer-nav-link {
+  line-height: 2;
 }

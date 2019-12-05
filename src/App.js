@@ -8,6 +8,8 @@ import quizQuestions from './api/quizQuestions'
 import Quiz from './components/Quiz'
 import Result from './components/Result'
 import Toggle from 'react-toggle'
+import Footer from './components/Footer'
+import Header from './components/Header'
 
 class App extends React.Component {
   constructor (props) {
@@ -28,6 +30,7 @@ class App extends React.Component {
         reveal: false,
         studyMode: true,
         optionSelected: false,
+        // showAnswer: false,
       },
       discussion: {
         correct: false,
@@ -48,6 +51,7 @@ class App extends React.Component {
     this.checkUnanswered = this.checkUnanswered.bind(this)
     this.handleReview = this.handleReview.bind(this)
     this.setNextPrevButtons = this.setNextPrevButtons.bind(this)
+    // this.handleAnswerReview = this.handleAnswerReview.bind(this)
   }
 
   componentDidMount () {
@@ -111,24 +115,6 @@ class App extends React.Component {
     this.checkUnanswered()
   }
 
-  // setOptionSelected () {
-  //   // keeps previously answered questions checked when scrolling
-  //   if (this.state.selectedAnswers[this.state.counter]) {
-  //     this.setState(prevState => ({
-  //       behavior: {
-  //         ...prevState.behavior,
-  //         optionSelected: true
-  //       }
-  //     }))
-  //   } else {
-  //     this.setState(prevState => ({
-  //       behavior: {
-  //         ...prevState.behavior,
-  //         optionSelected: false
-  //       }
-  //     }))
-  //   }
-  // }
 
   handlePrevQuestion () {
     this.handleUpdate(-1)
@@ -203,6 +189,16 @@ class App extends React.Component {
     }))
     }
   }
+
+  // handleAnswerReview () {
+  //   console.log("Clicking answer")
+  //   this.setState(prevState => ({
+  //     behavior:   {
+  //       ...prevState.behavior,
+  //       showAnswer: !prevState.behavior.showAnswer
+  //     }
+  //   }))
+  // }
 
   checkUnanswered () {
     let unansweredQuestions = this.state.selectedAnswers.map((answer, i) => {
@@ -284,19 +280,15 @@ class App extends React.Component {
   render () {
     return (
       <div className="App">
-        <header className="App-header">
-          <i className="fas fa-stethoscope fa-2x"/>
-           <h3>EMQuick Board Review</h3>
-          <label>
-            <Toggle
-              defaultChecked={this.state.behavior.studyMode}
-              icons={false}
-              onChange={this.handleStudyModeChange} />
-            <span>Study Mode</span>
-          </label>
-        </header>
+        <Header
+          studyMode={this.state.behavior.studyMode}
+          handleStudyModeChange={this.handleStudyModeChange}
+        />
         {this.state.score >= 0 ? this.renderResult() : this.renderQuiz() }
-
+        <Footer
+          studyMode={this.state.studyMode}
+          handleStudyModeChange = {this.handleStudyModeChange}
+        />
       </div>
     )
   }
@@ -323,7 +315,6 @@ class App extends React.Component {
         studyMode = {this.state.behavior.studyMode}
         selectedAnswers = {this.state.selectedAnswers}
         handleReview = {this.handleReview}
-        // unanswered = {this.state.unansweredQuestions.length}
         showPrevButton={this.state.gui.showPrev}
         showNextButton={this.state.gui.showNext}
       />
@@ -338,19 +329,18 @@ class App extends React.Component {
         quiz={this.state.quiz}
         selectedAnswers={this.state.selectedAnswers}
         answerKey={this.state.answerKey}
-        quizScore={this.state.score} />
+        quizScore={this.state.score}
+      />
     )
   }
-
-  // renderReview () {
-  // }
 }
+
 export default App;
 
 //todo:  create question flag for review
 //done:  toggle button to show unanswered
 //todo:  progress bar showing answered / unanswered / flagged  ?s
-//todo:  create scoring routine
+//done:  create scoring routine
 //todo:  deploy in github pages for testing
 
 //This is scope creep, but necessary!

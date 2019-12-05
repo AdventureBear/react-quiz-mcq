@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { CSSTransitionGroup } from 'react-transition-group'
 import QuestionReview from './QuestionReview'
+import Score from './Score'
 
 function Result (props) {
 
@@ -12,9 +13,13 @@ function Result (props) {
         key={question.question}
         counter={i}
         question={question.question}
+        fullQuestion ={question}
+        // correctAnswer={question.answers[props.answerKey[i]].content}
         correctAnswer={props.answerKey[i]}
+        // selectedAnswer={question.answers[props.selectedAnswers[i]].content}
+        discussion = {question.answers[props.answerKey[i]].discussion}
         selectedAnswer={props.selectedAnswers[i]}
-        onClick={props.handleQuestionReviewClick}
+        showAnswer={props.showAnswer}
       />
     )
   }
@@ -31,7 +36,10 @@ function Result (props) {
       transitionAppearTimeout={500}
     >
       <div>
-        Your score is <strong>{props.quizScore} out of {props.quiz.length}</strong> or <strong>{parseInt(props.quizScore/props.quiz.length*100)} %</strong>
+      <Score
+        score={props.quizScore}
+        quiz={props.quiz}
+      />
 
         <ul className='review'>
           {props.quiz.map(renderQuestionReview)}
@@ -44,10 +52,11 @@ function Result (props) {
 }
 
 Result.propTypes = {
+  showAnswer: PropTypes.bool.isRequired,
+  handleAnswerReview: PropTypes.func.isRequired,
   quiz: PropTypes.array.isRequired,
   answerKey: PropTypes.array.isRequired,
   selectedAnswers: PropTypes.array.isRequired,
-  // handleQuestionReviewClick: PropTypes.func.isRequired,
   quizScore: PropTypes.number.isRequired
 }
 
