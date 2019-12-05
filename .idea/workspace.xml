@@ -2,57 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c1a21dd5-acc4-4643-9a79-eca3a08948fd" name="Default Changelist" comment="7">
-      <change afterPath="$PROJECT_DIR$/.env" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/node_modules/express/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/node_modules/express/lib/application.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/node_modules/express/lib/express.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/node_modules/express/lib/middleware/init.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/node_modules/express/lib/middleware/query.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/node_modules/express/lib/request.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/node_modules/express/lib/response.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/node_modules/express/lib/router/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/node_modules/express/lib/router/layer.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/node_modules/express/lib/router/route.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/node_modules/express/lib/utils.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/node_modules/express/lib/view.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/node_modules/express/package.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/node_modules/nodemon/bin/nodemon.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/node_modules/nodemon/bin/postinstall.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/node_modules/nodemon/commitlint.config.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/node_modules/nodemon/lib/cli/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/node_modules/nodemon/lib/cli/parse.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/node_modules/nodemon/lib/config/command.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/node_modules/nodemon/lib/config/defaults.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/node_modules/nodemon/lib/config/exec.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/node_modules/nodemon/lib/config/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/node_modules/nodemon/lib/config/load.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/node_modules/nodemon/lib/help/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/node_modules/nodemon/lib/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/node_modules/nodemon/lib/monitor/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/node_modules/nodemon/lib/monitor/match.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/node_modules/nodemon/lib/monitor/run.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/node_modules/nodemon/lib/monitor/signals.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/node_modules/nodemon/lib/monitor/watch.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/node_modules/nodemon/lib/nodemon.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/node_modules/nodemon/lib/rules/add.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/node_modules/nodemon/lib/rules/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/node_modules/nodemon/lib/rules/parse.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/node_modules/nodemon/lib/spawn.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/node_modules/nodemon/lib/utils/bus.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/node_modules/nodemon/lib/utils/clone.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/node_modules/nodemon/lib/utils/colour.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/node_modules/nodemon/lib/utils/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/node_modules/nodemon/lib/utils/log.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/node_modules/nodemon/lib/utils/merge.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/node_modules/nodemon/lib/version.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/node_modules/nodemon/package.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/package-lock.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/package.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/server.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
