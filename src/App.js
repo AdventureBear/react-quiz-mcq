@@ -11,6 +11,7 @@ import Toggle from 'react-toggle'
 import Footer from './components/Footer'
 import Header from './components/Header'
 import {Container} from 'semantic-ui-react'
+import ShowQuestion from './components/ShowQuestion'
 
 class App extends React.Component {
   constructor (props) {
@@ -302,6 +303,7 @@ class App extends React.Component {
           studyMode={this.state.behavior.studyMode}
           handleStudyModeChange={this.handleStudyModeChange}
         />
+        <ShowQuestion />
         <Container text style={{ marginTop: '3em' }}>
         {this.state.score >= 0 ? this.renderResult() : this.renderQuiz() }
         </Container>

@@ -10,7 +10,7 @@ router.get('/questions', (req,res, next) => {
 })
 
 router.post('/questions', (req,res,next) => {
-  if(req.body.action){
+  if(req.body.question){
     Question.create(req.body)
       .then(data => res.json(data))
       .catch(next)
