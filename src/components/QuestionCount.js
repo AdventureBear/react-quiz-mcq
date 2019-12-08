@@ -1,11 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { Header } from 'semantic-ui-react'
 
 function QuestionCount (props) {
   return (
-    <div className='questionCount'>
+    <Header as="h1">
       Question <span>{props.counter}</span> of <span>{props.total}</span>
-    </div>
+    </Header>
   )
 }
 

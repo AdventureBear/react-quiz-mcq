@@ -7,6 +7,7 @@ import Controls from './Controls'
 import {CSSTransitionGroup} from 'react-transition-group'
 import Discussion from './Discussion'
 import References from './References'
+import { Container, Header } from 'semantic-ui-react'
 
 function Quiz (props)  {
   const renderAnswerOptions=(key) =>{
@@ -25,28 +26,30 @@ function Quiz (props)  {
   const unanswered = ( props.unansweredQuestions.length > 0)
   console.log(props.unansweredQuestions.length, unanswered)
   return (
-    <CSSTransitionGroup
-      className="container"
-      component="div"
-      transitionName="fade"
-      transitionEnterTimeout={800}
-      transitionLeaveTimeout={500}
-      transitionAppear
-      transitionAppearTimeout={500}
-    >
-      <div key={props.questionId}>
+
+      <div  key={props.questionId}>
         <QuestionCount
           counter={props.questionId}
           total={props.questionTotal}
         />
+        <CSSTransitionGroup
+          className="questions"
+          component="div"
+          transitionName="fade"
+          transitionEnterTimeout={800}
+          transitionLeaveTimeout={500}
+          transitionAppear
+          transitionAppearTimeout={500}
+        >
+          <div className='questions'>
+              <Question content={props.question}/>
 
-        <Question content={props.question}/>
-
-        {/*//Answer Option*/}
-        <ul className='answerOptions'>
-          {props.answerOptions.map(renderAnswerOptions)}
-        </ul>
-
+              {/*//Answer Option*/}
+              <ul className='answerOptions'>
+                {props.answerOptions.map(renderAnswerOptions)}
+              </ul>
+          </div>
+        </CSSTransitionGroup>
         <Controls
           studyMode = {props.studyMode}
           handlePrevQuestion = {props.handlePrevQuestion}
@@ -75,7 +78,7 @@ function Quiz (props)  {
 
 
       </div>
-    </CSSTransitionGroup>
+
   )
 
 

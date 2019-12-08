@@ -1,43 +1,48 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Toggle from 'react-toggle'
+import { Container, Menu, Radio } from 'semantic-ui-react'
 
 function Header (props) {
   const mode = (props.studyMode ? "Study Mode" : "Test Mode" )
   return (
-    <div className="header">
-          <div className='header-logo'>
+    <Container>
+    <Menu fixed='top' inverted>
+      <Container>
+          <Menu.Item as="a" header>
             <i className="fas fa-stethoscope fa-1x"/>
-
             <span className='title'>EMQuick</span>
-          </div>
-
-          <div className='navbar'>
-            <a className="nav-item" href="/docs/getting-started.html">
-              About
-            </a>
-
-            <a className="nav-item selected" href="/docs/getting-started.html">
-              Study
-              <span className="breadcrumb"></span>
-            </a>
+        </Menu.Item>
+        <Menu.Item as='a'>Home</Menu.Item>
+        <Menu.Menu inverted position="right">
+          <Menu.Item as="a">Login</Menu.Item>
+          <Menu.Item as="a">Sign Up</Menu.Item>
+          <Menu.Item as="a">Logout</Menu.Item>
+        </Menu.Menu>
 
 
-            <a className="nav-item" href="/docs/getting-started.html">
-              Test
-            </a>
-          </div>
+      </Container>
 
-          <div className='toggle'>
-            <label>
-              <Toggle
-                defaultChecked={props.studyMode}
-                icons={false}
-                onChange={props.handleStudyModeChange} />
-              <span className='toggle-label'>{mode}</span>
-            </label>
-          </div>
-    </div>
+    </Menu>
+    <Menu position="right">
+
+    {/*<label>*/}
+  {/*  <Toggle*/}
+  {/*    defaultChecked={props.studyMode}*/}
+  {/*    icons={false}*/}
+  {/*    onChange={props.handleStudyModeChange} />*/}
+  {/*  <span className='toggle-label'>{mode}</span>*/}
+  {/*</label>*/}
+
+  <Menu.Item style={{ marginTop: '1.5em' }}>
+    <Radio onChange={props.handleStudyModeChange}
+           toggle inverse
+           label={mode}
+    />
+  </Menu.Item>
+
+  </Menu>
+</Container>
   )
 }
 

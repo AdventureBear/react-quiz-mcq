@@ -3,13 +3,15 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "ejs": "^3.0.1",
     "express": "^4.17.1",
     "prop-types": "^15.7.2",
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
     "react-scripts": "3.2.0",
     "react-toggle": "^4.1.1",
-    "react-transition-group": "^1.2.1"
+    "react-transition-group": "^1.2.1",
+    "semantic-ui-react": "^0.88.1"
   },
   "scripts": {
     "start": "react-scripts start",

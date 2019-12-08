@@ -1,9 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { Header } from 'semantic-ui-react'
 
 function Question (props)  {
   return (
-    <div className='question'>{props.content}</div>
+   <div> <p>{props.content}</p></div>
   )
 }
 
