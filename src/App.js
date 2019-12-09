@@ -6,12 +6,18 @@ import './toggle.css'
 import '@fortawesome/fontawesome-free/css/all.css'
 import quizQuestions from './api/quizQuestions'
 import Quiz from './components/Quiz'
+import QuizContainer from './components/QuizContainer'
 import Result from './components/Result'
 import Toggle from 'react-toggle'
 import Footer from './components/Footer'
 import Header from './components/Header'
 import {Container} from 'semantic-ui-react'
 import ShowQuestion from './components/ShowQuestion'
+
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+// import { BrowserRouter, Route, Switch } from 'react-router-dom';
+// import { withRouter } from 'react-router'
+// const AppWithRouter = withRouter(App)
 
 class App extends React.Component {
   constructor (props) {
@@ -142,34 +148,7 @@ class App extends React.Component {
     this.handleUpdate(1)
   }
 
-  handleUpdate (increment) {
-    const counter = this.state.counter + increment
-    const showPrev = counter !== 0;
-    const showNext = counter !== quizQuestions.length - 1;
-    const optionSelected = (this.state.selectedAnswers[counter]>0)
 
-    this.setState(prevState => ({
-          optionSelected,
-          counter,
-          gui:        {
-            showPrev,
-            showNext
-          },
-          // unansweredQuestions,
-          behavior:   {
-            ...prevState.behavior,
-            optionSelected: optionSelected,
-            reveal: false
-          },
-          discussion: {
-            correct:    false,
-            discussion: "",
-            label:      ""
-          }
-        }
-      )
-    )
-  }
 
   createAnswerKey () {
     const answerKey = quizQuestions.map((question) => {
@@ -208,15 +187,15 @@ class App extends React.Component {
     }
   }
 
-  // handleAnswerReview () {
-  //   console.log("Clicking answer")
-  //   this.setState(prevState => ({
-  //     behavior:   {
-  //       ...prevState.behavior,
-  //       showAnswer: !prevState.behavior.showAnswer
-  //     }
-  //   }))
-  // }
+  handleAnswerReview () {
+    console.log("Clicking answer")
+    this.setState(prevState => ({
+      behavior:   {
+        ...prevState.behavior,
+        showAnswer: !prevState.behavior.showAnswer
+      }
+    }))
+  }
 
   checkUnanswered () {
     let unansweredQuestions = this.state.selectedAnswers.map((answer, i) => {
@@ -298,63 +277,102 @@ class App extends React.Component {
   render () {
     console.log("Express backend: ", this.state.data)
     return (
+
       <div className="App">
-        <Header
-          studyMode={this.state.behavior.studyMode}
-          handleStudyModeChange={this.handleStudyModeChange}
-        />
-        <ShowQuestion />
-        <Container text style={{ marginTop: '3em' }}>
-        {this.state.score >= 0 ? this.renderResult() : this.renderQuiz() }
-        </Container>
-        <Footer
-          studyMode={this.state.studyMode}
-          handleStudyModeChange = {this.handleStudyModeChange}
-        />
+        <Switch>
+          <Route
+            path='/'
+            render={ () =>
+              <QuizContainer
+                  // quizQuestions = {this.state.quizQuestions}
+                  counter = {this.state.counter}
+                  studyMode={this.state.behavior.studyMode}
+                  quiz={this.state.quiz}
+                  selectedAnswers={this.state.selectedAnswers}
+                  answerKey={this.state.answerKey}
+                  quizScore={this.state.score}
+                  unansweredQuestions={this.state.unansweredQuestions}
+                  answer={this.state.selectedAnswers[this.state.counter]}
+                  answerOptions={quizQuestions[this.state.counter].answers}
+                  questionId={this.state.counter+1}
+                  question={quizQuestions[this.state.counter].question}
+                  questionTotal={quizQuestions.length}
+                  onAnswerSelected={this.handleAnswerSelected}
+                  handlePrevQuestion = {this.handlePrevQuestion}
+                  handleNextQuestion = {this.handleNextQuestion}
+                  handleReveal = {this.handleReveal}
+                  handleScore = {this.handleScore}
+                  discussion = {this.state.discussion}
+                  optionSelected = {this.state.behavior.optionSelected}
+                  reveal = {this.state.behavior.reveal}
+                  source = {quizQuestions[this.state.counter].source}
+                  references={quizQuestions[this.state.counter].references}
+                  handleReview = {this.handleReview}
+                  showPrevButton={this.state.gui.showPrev}
+                  showNextButton={this.state.gui.showNext}
+
+               />
+            }
+          />
+          {/*  <Header*/}
+          {/*    studyMode={this.state.behavior.studyMode}*/}
+          {/*    handleStudyModeChange={this.handleStudyModeChange}*/}
+          {/*  />*/}
+          {/*  <ShowQuestion />*/}
+          {/*  <Container text style={{ marginTop: '3em' }}>*/}
+          {/*  {this.state.score >= 0 ? this.renderResult() : this.renderQuiz() }*/}
+          {/*  </Container>*/}
+          {/*  <Footer*/}
+          {/*    studyMode={this.state.studyMode}*/}
+          {/*    handleStudyModeChange = {this.handleStudyModeChange}*/}
+
+          {/*/>*/}
+        </Switch>
       </div>
-    )
-  }
-
-  renderQuiz () {
-    return (
-      <Quiz
-        unansweredQuestions={this.state.unansweredQuestions}
-        answer={this.state.selectedAnswers[this.state.counter]}
-        answerOptions={quizQuestions[this.state.counter].answers}
-        questionId={this.state.counter+1}
-        question={quizQuestions[this.state.counter].question}
-        questionTotal={quizQuestions.length}
-        onAnswerSelected={this.handleAnswerSelected}
-        handlePrevQuestion = {this.handlePrevQuestion}
-        handleNextQuestion = {this.handleNextQuestion}
-        handleReveal = {this.handleReveal}
-        handleScore = {this.handleScore}
-        discussion = {this.state.discussion}
-        optionSelected = {this.state.behavior.optionSelected}
-        reveal = {this.state.behavior.reveal}
-        source = {quizQuestions[this.state.counter].source}
-        references={quizQuestions[this.state.counter].references}
-        studyMode = {this.state.behavior.studyMode}
-        selectedAnswers = {this.state.selectedAnswers}
-        handleReview = {this.handleReview}
-        showPrevButton={this.state.gui.showPrev}
-        showNextButton={this.state.gui.showNext}
-      />
-
 
     )
   }
 
-  renderResult () {
-    return (
-      <Result
-        quiz={this.state.quiz}
-        selectedAnswers={this.state.selectedAnswers}
-        answerKey={this.state.answerKey}
-        quizScore={this.state.score}
-      />
-    )
-  }
+  // renderQuiz () {
+  //   return (
+  //     <Quiz
+  //       unansweredQuestions={this.state.unansweredQuestions}
+  //       answer={this.state.selectedAnswers[this.state.counter]}
+  //       answerOptions={quizQuestions[this.state.counter].answers}
+  //       questionId={this.state.counter+1}
+  //       question={quizQuestions[this.state.counter].question}
+  //       questionTotal={quizQuestions.length}
+  //       onAnswerSelected={this.handleAnswerSelected}
+  //       handlePrevQuestion = {this.handlePrevQuestion}
+  //       handleNextQuestion = {this.handleNextQuestion}
+  //       handleReveal = {this.handleReveal}
+  //       handleScore = {this.handleScore}
+  //       discussion = {this.state.discussion}
+  //       optionSelected = {this.state.behavior.optionSelected}
+  //       reveal = {this.state.behavior.reveal}
+  //       source = {quizQuestions[this.state.counter].source}
+  //       references={quizQuestions[this.state.counter].references}
+  //       studyMode = {this.state.behavior.studyMode}
+  //       selectedAnswers = {this.state.selectedAnswers}
+  //       handleReview = {this.handleReview}
+  //       showPrevButton={this.state.gui.showPrev}
+  //       showNextButton={this.state.gui.showNext}
+  //     />
+  //
+  //
+  //   )
+  // }
+
+  // renderResult () {
+  //   return (
+  //     <Result
+  //       quiz={this.state.quiz}
+  //       selectedAnswers={this.state.selectedAnswers}
+  //       answerKey={this.state.answerKey}
+  //       quizScore={this.state.score}
+  //     />
+  //   )
+  // }
 }
 
 export default App;
