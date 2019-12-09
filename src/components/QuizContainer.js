@@ -16,11 +16,10 @@ class  QuizContainer extends React.Component {
   render () {
     return (
       <div>
-        <Header
-          studyMode={this.props.studyMode}
-          handleStudyModeChange={this.props.handleStudyModeChange}
-        />
-        <ShowQuestion/>
+        {/*<Header*/}
+        {/*  studyMode={this.props.studyMode}*/}
+        {/*  handleStudyModeChange={this.props.handleStudyModeChange}*/}
+        {/*/>*/}
         <Container text style={{marginTop: '3em'}}>
           {this.props.score >= 0 ? this.renderResult() : this.renderQuiz()}
         </Container>
